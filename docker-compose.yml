@@ -1,0 +1,63 @@
+version: "3"
+services:
+
+  server:
+    build:
+      context: .
+      dockerfile: server.Dockerfile
+    container_name: server
+    networks:
+      - app-network
+    ports:
+      - "3005:3005"
+    volumes:
+    - ./server:/home/server
+    depends_on:
+      - mongo
+
+  front:
+    build:
+      context: .
+      dockerfile: vue.Dockerfile
+    container_name: front
+    networks:
+      - app-network
+    ports:
+      - "3000:3000"
+    volumes:
+    - ./front:/home/front
+    command: bash -c "npm rebuild node-sass --prefix front && npm run serve -- --port 3000"
+
+  web:
+    image: nginx:mainline-alpine
+    container_name: webserver
+    ports:
+      - "88:80"
+    volumes:
+      - ./nginx-conf:/etc/nginx/conf.d
+      
+    depends_on:
+      - server
+      - front
+      - mongo
+    networks:
+      - app-network
+
+  mongo:
+    image: mongo
+    container_name: mongo
+    ports:
+    - "27018:27017"
+    volumes:
+    - ./db-data:/data/db
+    networks:
+      - app-network
+
+volumes:
+  server: {}
+  front: {}
+  db-data: {}
+
+networks:
+  app-network:
+    driver: bridge
