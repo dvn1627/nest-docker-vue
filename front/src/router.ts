@@ -4,6 +4,7 @@ import Home from './views/Home.vue';
 import Dashboard from './views/Dashboard.vue';
 import Heroes from './views/Heroes.vue';
 import Detail from './views/Detail.vue';
+import Login from './views/Login.vue';
 
 Vue.use(Router);
 
@@ -14,7 +15,7 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: Home,
+      component: Login,
     },
     {
       path: '/about',

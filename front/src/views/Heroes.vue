@@ -2,7 +2,7 @@
   <div>
     <h2>My Heroes</h2>
     <ul class="heroes">
-      <li v-for="hero in heroes" :key="hero.id">
+      <li v-for="hero in getHeroes" :key="hero.id">
         <router-link :to="'/detail/' + hero.id">
           <span class="badge">{{hero.id}}</span> {{hero.name}}
         </router-link>
@@ -29,15 +29,18 @@
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
   import IHero from '../common/IHero';
+  import { mapActions, mapGetters } from 'vuex';
 
   export default Vue.extend({
     name: 'Heroes',
-    data() {
-      return {
-        heroes: [],
-      };
+    computed: {
+      ...mapGetters(['getHeroes']),
+    },
+    mounted() {
+      this.fetchHeroes();
     },
     methods: {
+      ...mapActions(['fetchHeroes']),
       deleteHero(hero: IHero): void {
 
       },
