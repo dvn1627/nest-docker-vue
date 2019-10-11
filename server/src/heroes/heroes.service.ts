@@ -7,6 +7,7 @@ import { ConfigService } from '../config/config.service';
 import { CreateHeroDTO } from '../dto/create-hero.dto';
 import { UpdateHeroDTO } from '../dto/update-hero.dto';
 import { DeleteHeroDTO } from '../dto/delete-hero.dto';
+import { ShowHeroDTO } from '../dto/show-hero.dto';
 
 @Injectable()
 export class HeroesService {
@@ -49,4 +50,7 @@ export class HeroesService {
     };
   }
 
+  async show(showHeroDTO: ShowHeroDTO) {
+    return await this.heroModel.findById(showHeroDTO.id);
+  }
 }

@@ -2,7 +2,7 @@
   <div>
     <h3>Top Heroes</h3>
     <div class="grid grid-pad">
-      <div v-for="hero in heroes" :key="hero.id" class="col-1-4">
+      <div v-for="hero in selectedHeroes" :key="hero.id" class="col-1-4">
         <router-link
           :to="'/detail/' + hero.id"
         >
@@ -16,12 +16,26 @@
 </template>
 <script lang="ts">
   import { Component, Prop, Vue } from 'vue-property-decorator';
+  import { mapActions, mapGetters } from 'vuex';
+
   export default Vue.extend({
     name: 'Dashboard',
     data() {
       return {
         heroes: [],
       };
+    },
+    computed: {
+      ...mapGetters(['getHeroes']),
+      selectedHeroes() {
+        return this.getHeroes.slice(0, 3);
+      }
+    },
+    mounted() {
+      this.fetchHeroes();
+    },
+    methods: {
+      ...mapActions(['fetchHeroes']),
     },
   });
 </script>

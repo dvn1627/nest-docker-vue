@@ -1,14 +1,38 @@
 <template>
   <div id="app">
       <h1>Heroes</h1>
-      <nav>
+      <nav v-if="getToken">
         <router-link to="/dashboard">Dashboard</router-link>
         <router-link to="/heroes">Heroes</router-link>
         <router-link to="/about">About</router-link>
       </nav>
+      <nav v-else>
+        <router-link :to="{name: 'login'}">Login</router-link>
+      </nav>
     <router-view></router-view>
   </div>
 </template>
+<script type="ts">
+  import { Vue } from 'vue-property-decorator';
+  import { mapGetters } from 'vuex';
+
+  export default Vue.extend({
+    name: 'Login',
+    data() {
+      return {
+        email : '',
+        password: '',
+      };
+    },
+    computed: {
+      ...mapGetters(['getToken']),
+    },
+    
+
+    
+
+  });
+</script>
 <style lang="scss">
 #app {
   h1 {
