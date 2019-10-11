@@ -2,11 +2,14 @@
   <div>
     <h2>My Heroes</h2>
     <ul class="heroes">
-      <li v-for="hero in getHeroes" :key="hero._id">
-        <router-link :to="'/detail/' + hero._id">
+      <li
+        v-for="hero in getHeroes" :key="hero._id"
+        @click="$router.push('/detail/' + hero._id)"
+      >
+        <a href="#" @click.prevent>
           <span class="badge">{{hero._id}}</span>
           <span class="name">{{hero.name | trim}} </span>
-        </router-link>
+        </a>
         <button
           class="delete"
           title="delete hero"
