@@ -33,6 +33,11 @@
         },
       };
     },
+    filters: {
+      uppercase(value) {
+        return value.toUpperCase();
+      },
+    },
     computed: {
       ...mapGetters(['getHero']),
     },

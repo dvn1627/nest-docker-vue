@@ -8,8 +8,8 @@ services:
     container_name: server
     networks:
       - app-network
-    ports:
-      - "3005:3005"
+    # ports:
+    #   - "3005:3005"
     volumes:
     - ./server:/home/server
     depends_on:
@@ -22,8 +22,8 @@ services:
     container_name: front
     networks:
       - app-network
-    ports:
-      - "3000:3000"
+    # ports:
+    #   - "3000:3000"
     volumes:
     - ./front:/home/front
     command: bash -c "npm rebuild node-sass --prefix front && npm run serve -- --port 3000"

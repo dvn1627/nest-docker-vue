@@ -4,10 +4,11 @@ import Dashboard from './views/Dashboard.vue';
 import Heroes from './views/Heroes.vue';
 import Detail from './views/Detail.vue';
 import Login from './views/Login.vue';
+import store from './store';
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   base: process.env.BASE_URL,
   routes: [
@@ -43,3 +44,19 @@ export default new Router({
     },
   ],
 });
+
+router.beforeEach( (to, from, next) => {
+  const token = store.state.token;
+  const protectedRoutes = [
+    'dashboard',
+    'heroes',
+    'detail'
+
+  ];
+  if (protectedRoutes.includes(to.name) && !token) {
+    next('/login');
+  }
+  next();
+});
+
+export default router;
