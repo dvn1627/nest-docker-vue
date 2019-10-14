@@ -65,6 +65,14 @@
         this.hero = this.getHero;
       },
     },
+    beforeRouteLeave (to, from, next) {
+      const answer = window.confirm('Вы хотите уйти? У вас есть несохранённые изменения!')
+      if (answer) {
+        next()
+      } else {
+        next(false)
+      }
+    }
   });
 </script>
 <style scoped lang="scss">

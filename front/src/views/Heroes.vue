@@ -64,7 +64,7 @@
       trim(value) {
         return value.trim();
       }
-    }
+    },
   });
 
 </script>
